@@ -6,12 +6,7 @@ class RandomKruskal extends MazeGen {
         for(let x = 0; x < maze.width; x++) {
             for(let y = 0; y < maze.height; y++) {
                 this.cell_sets.make_set([x, y]);
-                if(x == 0)
-                    walls.push([x, y, directions.LEFT]);
-                if(y == 0)
-                    walls.push([x, y, directions.TOP]);
-                walls.push([x, y, directions.BOTTOM],
-                           [x, y, directions.RIGHT])
+                walls.push(...maze.get_relevant_wall(x, y));
             }
         }
         this.walls_random = walls.sort((a, b) => 0.5 - Math.random());
@@ -42,14 +37,10 @@ class RandomKruskal extends MazeGen {
         for(let x = 0; x < maze.width; x++) {
             for(let y = 0; y < maze.height; y++) {
                 cell_sets.make_set([x, y]);
-                if(x == 0)
-                    walls.push([x, y, directions.LEFT]);
-                if(y == 0)
-                    walls.push([x, y, directions.TOP]);
-                walls.push([x, y, directions.BOTTOM],
-                           [x, y, directions.RIGHT])
+                walls.push(...maze.get_relevant_wall(x, y));
             }
         }
+        console.log(walls);
         const walls_random = walls.sort((a, b) => 0.5 - Math.random());
         for(const wall of walls_random) {
             let cell1 = wall.slice(0, 2);

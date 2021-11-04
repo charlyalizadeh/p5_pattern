@@ -12,6 +12,8 @@ class Maze {
         this.graph = new Graph(width * height);
         this.cell_states = Array(this.graph.nv()).fill(false);
     }
+    get_coord(coord) {
+    }
     has_edge(x, y, direction) {
         let v1 = y * this.width + x;
         let v2 = -1;
@@ -51,18 +53,18 @@ class Maze {
     }
     get_cell_state(coord) {
         if(Array.isArray(coord))
-            coord = this.get_cell_index(coord);
+            coord = this.get_cell_index(...coord);
         return this.cell_states[coord];
     }
     set_cell_state(coord, state) {
         if(Array.isArray(coord))
-            coord = this.get_cell_index(coord);
+            coord = this.get_cell_index(...coord);
         this.cell_states[coord] = state;
     }
     set_cell_states(states) {
         this.cell_states = states;
     }
-    get_inter_cell(x, y, direction) {
+    get_inter_cell(coord, direction) {
         let [nx, ny] = [-1, -1];
         switch(direction) {
             case directions.TOP:
@@ -96,6 +98,21 @@ class Maze {
     }
     get_cell_index(x, y) {
         return y * this.width + x;
+    }
+    get_wall_on(coord) {
+        if(!Array.isArray(coord))
+            coord = this.get_cell_coord(coord);
+        let [x, y] = coord;
+        let walls = [];
+        if(x > 0 && !this.has_edge(x, y, directions.LEFT))
+            walls.push([x, y, directions.LEFT])
+        if(y > 0 && !this.has_edge(x, y, directions.TOP))
+            walls.push([x, y, directions.TOP])
+        if(x < this.width - 1 && !this.has_edge(x, y, directions.RIGHT))
+            walls.push([x, y, directions.RIGHT]);
+        if(y < this.height - 1 && !this.has_edge(x, y, directions.BOTTOM))
+            walls.push([x, y, directions.BOTTOM]);
+        return walls;
     }
 }
 
@@ -131,7 +148,7 @@ class MazeDrawer {
         g.stroke(this.wall_on);
         for(let x = 0; x < this.maze.width; x++) {
             for(let y = 0; y < this.maze.height; y++) {
-                if(!this.maze.get_cell_state(x, y)) {
+                if(!this.maze.get_cell_state([x, y])) {
                     this.draw_cell(g, x, y, this.hidden_cell, this.wall_on);
                 }
                 else {
