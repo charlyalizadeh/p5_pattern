@@ -5,7 +5,6 @@ class DisjointSet {
         this.index_map = new Map();
         this.size = [];
     }
-
     make_set(node) {
         if(!this.index_map.has(node)) {
             let index = this.parents.length;
@@ -14,13 +13,11 @@ class DisjointSet {
             this.size.push(1);
         }
     }
-
     make_sets(nodes) {
         for(const node of nodes) {
             this.make_set(node);
         }
     }
-
     find(node) {
         let current_index = this.index_map[node]
         while(current_index != this.parents[current_index]) {
@@ -28,7 +25,6 @@ class DisjointSet {
         }
         return current_index;
     }
-
     union(node1, node2) {
         let root1 = this.find(node1);
         let root2 = this.find(node2);

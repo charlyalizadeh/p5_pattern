@@ -5,14 +5,6 @@ class Graph {
             this.adj_matrix[i][i] = 1;
         }
     }
-    add_edge(v1, v2) {
-        this.adj_matrix[v1][v2] = 1;
-        this.adj_matrix[v2][v1] = 1;
-    }
-    rem_edge(v1, v2) {
-        this.adj_matrix[v1][v2] = 0;
-        this.adj_matrix[v2][v1] = 0;
-    }
     has_edge(v1, v2) {
         return Boolean(this.adj_matrix[v1][v2]);
     }
@@ -36,5 +28,13 @@ class Graph {
             }
         }
         return neighbors;
+    }
+    add_edge(v1, v2) {
+        this.adj_matrix[v1][v2] = 1;
+        this.adj_matrix[v2][v1] = 1;
+    }
+    rem_edge(v1, v2) {
+        this.adj_matrix[v1][v2] = 0;
+        this.adj_matrix[v2][v1] = 0;
     }
 }

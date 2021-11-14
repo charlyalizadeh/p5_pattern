@@ -1,5 +1,5 @@
 class RandomDFS extends MazeGen {
-    constructor(maze, v = 0) {
+    constructor(maze, v=0) {
         super(maze);
         this.stack = [v];
         this.to_visit = Array(this.maze.graph.nv()).fill(true);
@@ -7,17 +7,17 @@ class RandomDFS extends MazeGen {
         this.current_v = v;
     }
     run_step() {
-        if(!this.stack.length) {
+        if(!this.stack.length)
             return false;
-        }
         this.current_v = this.stack.pop();
-        this.maze.set_cell_state(...this.maze.get_cell_coord(this.current_v), true);
+        this.maze.set_cell_state(this.current_v, true);
         let neighbors = this.maze.neighbors_filtered(this.current_v, this.to_visit);
         if(neighbors.length) {
             this.stack.push(this.current_v);
             let next_v = random(neighbors);
             this.maze.graph.add_edge(this.current_v, next_v);
             this.to_visit[next_v] = false;
+            this.maze.set_cell_state(next_v, true);
             this.stack.push(next_v)
         }
         return true;

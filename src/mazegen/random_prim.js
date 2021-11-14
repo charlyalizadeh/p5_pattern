@@ -6,9 +6,8 @@ class RandomPrim extends MazeGen {
         let [x, y] = this.maze.get_cell_coord(v);
     }
     run_step() {
-        if(!this.walls.length) {
+        if(!this.walls.length)
             return false;
-        }
         let wall = random(this.walls);
         let cell0 = wall.slice(0, 2);
         let cell1 = [...cell0];
@@ -26,8 +25,8 @@ class RandomPrim extends MazeGen {
                 cell1[0] -= 1;
                 break;
         }
-        let index0 = this.maze.get_cell_index(...cell0);
-        let index1 = this.maze.get_cell_index(...cell1);
+        let index0 = this.maze.get_cell_index(cell0);
+        let index1 = this.maze.get_cell_index(cell1);
         if(!this.maze.get_cell_state(index0) && this.maze.get_cell_state(index1)) {
             this.maze.graph.add_edge(index0, index1);
             this.maze.set_cell_state(index0, true);
@@ -63,8 +62,8 @@ class RandomPrim extends MazeGen {
                     cell1[0] -= 1;
                     break;
             }
-            let index0 = maze.get_cell_index(...cell0);
-            let index1 = maze.get_cell_index(...cell1);
+            let index0 = maze.get_cell_index(cell0);
+            let index1 = maze.get_cell_index(cell1);
             if(to_visit[index0] && !to_visit[index1]) {
                 maze.graph.add_edge(index0, index1);
                 to_visit[index0] = false;

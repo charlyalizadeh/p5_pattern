@@ -11,10 +11,48 @@ class Maze {
         this.height = height;
         this.graph = new Graph(width * height);
         this.cell_states = Array(this.graph.nv()).fill(false);
+        this.valid_cells = Array(this.graph.nv()).fill(true);
     }
-    get_coord(coord) {
+    // Setter
+    set_cell_states(states) {
+        this.cell_states = states;
     }
-    has_edge(x, y, direction) {
+    set_adj_matrix(adj_matrix) {
+        this.graph.adj_matrix = adj_matrix;
+    }
+    set_cell_state(coord, state) {
+        if(Array.isArray(coord))
+            coord = this.get_cell_index(coord);
+        this.cell_states[coord] = state;
+    }
+    set_rule_valid_cell(rule) {
+        this.valid_cells = this.valid_cells.map(rule);
+    }
+    set_valid_cell(coord, state) {
+        if(Array.isArray(coord))
+            coord = this.get_cell_index(coord);
+        this.valid_cells(coord) = state;
+    }
+
+    // Getter
+    is_valid_coord(coord) {
+        if(Array.isArray(coord)) {
+            if(coord[0] < 0 || coord[1] < 0 || coord[0] >= this.width || coord[1] >= this.height)
+                return false;
+        }
+        else {
+            if(coord < 0 || coord >= this.graph.nv())
+                return false;
+        }
+        return true;
+    }
+    is_valid_cell(coord) {
+        if(Array.isArray(coord))
+            coord = this.get_cell_index(coord);
+        return this.valid_cells[coord];
+    }
+    has_edge(coord, direction) {
+        let [x, y] = coord;
         let v1 = y * this.width + x;
         let v2 = -1;
         switch(direction) {
@@ -44,8 +82,7 @@ class Maze {
         ]
         for(const n of neighbors) {
             let index = n[1] * this.width + n[0]
-            if(n[0] >= 0 && n[0] < this.width && n[1] >= 0 && n[1] < this.height
-               && filter[index]) {
+            if(this.is_valid_coord(n) && this.is_valid_cell(n) && filter[index]) {
                 results.push(index);
             }
         }
@@ -53,18 +90,11 @@ class Maze {
     }
     get_cell_state(coord) {
         if(Array.isArray(coord))
-            coord = this.get_cell_index(...coord);
+            coord = this.get_cell_index(coord);
         return this.cell_states[coord];
     }
-    set_cell_state(coord, state) {
-        if(Array.isArray(coord))
-            coord = this.get_cell_index(...coord);
-        this.cell_states[coord] = state;
-    }
-    set_cell_states(states) {
-        this.cell_states = states;
-    }
     get_inter_cell(coord, direction) {
+        let [x, y] = coord
         let [nx, ny] = [-1, -1];
         switch(direction) {
             case directions.TOP:
@@ -80,7 +110,7 @@ class Maze {
                 [nx, ny] = [x - 1, y];
                 break;
         }
-        if(nx < 0 || ny < 0 || nx >= this.width || ny >= this.height)
+        if(!this.is_valid_coord([nx, ny]) || !this.is_valid_cell([nx, ny]))
             return null;
         else
             return [nx, ny]
@@ -88,30 +118,27 @@ class Maze {
     get_adj_matrix() {
         return this.graph.adj_matrix;
     }
-    set_adj_matrix(adj_matrix) {
-        this.graph.adj_matrix = adj_matrix;
-    }
     get_cell_coord(v) {
         let y = Math.trunc(v / this.width);
         let x = v - y * this.width;
         return [x, y];
     }
-    get_cell_index(x, y) {
+    get_cell_index([x, y]) {
         return y * this.width + x;
     }
-    get_wall_on(coord) {
+    get_wall_on(coord, valid_direction=["top", "bottom", "right", "left"]) {
         if(!Array.isArray(coord))
             coord = this.get_cell_coord(coord);
         let [x, y] = coord;
         let walls = [];
-        if(x > 0 && !this.has_edge(x, y, directions.LEFT))
-            walls.push([x, y, directions.LEFT])
-        if(y > 0 && !this.has_edge(x, y, directions.TOP))
+        if(valid_direction.includes(directions.TOP) && this.is_valid_coord([x, y - 1]) && this.is_valid_cell([x, y - 1]) && !this.has_edge([x, y], directions.TOP))
             walls.push([x, y, directions.TOP])
-        if(x < this.width - 1 && !this.has_edge(x, y, directions.RIGHT))
-            walls.push([x, y, directions.RIGHT]);
-        if(y < this.height - 1 && !this.has_edge(x, y, directions.BOTTOM))
+        if(valid_direction.includes(directions.BOTTOM) && this.is_valid_coord([x, y + 1]) && this.is_valid_cell([x, y + 1]) && !this.has_edge([x, y], directions.BOTTOM))
             walls.push([x, y, directions.BOTTOM]);
+        if(valid_direction.includes(directions.RIGHT) && this.is_valid_coord([x + 1, y]) && this.is_valid_cell([x + 1, y]) && !this.has_edge([x, y], directions.RIGHT))
+            walls.push([x, y, directions.RIGHT]);
+        if(valid_direction.includes(directions.LEFT) && this.is_valid_coord([x - 1, y]) && this.is_valid_cell([x - 1, y]) && !this.has_edge([x, y], directions.LEFT))
+            walls.push([x, y, directions.LEFT])
         return walls;
     }
 }
@@ -127,10 +154,8 @@ class MazeDrawer {
                 revealed_cell=[255, 255, 255],
                 hidden_cell=[0, 0, 0],
                 search_cell=[0, 255, 0],
-                stroke_weight=4,
-                ) {
+                stroke_weight=4) {
         this.maze = maze;
-
         this.dim = dim;
         this.cell_args = cell_args;
         this.search_cell_args = search_cell_args;
@@ -158,10 +183,10 @@ class MazeDrawer {
         }
         for(let x = 0; x < this.maze.width; x++) {
             for(let y = 0; y < this.maze.height; y++) {
-                if(this.maze.has_edge(x, y, directions.BOTTOM)) {
+                if(this.maze.has_edge([x, y], directions.BOTTOM)) {
                     this.draw_wall(g, x, y, directions.BOTTOM, this.wall_off);
                 }
-                if(this.maze.has_edge(x, y, directions.RIGHT)) {
+                if(this.maze.has_edge([x, y], directions.RIGHT)) {
                     this.draw_wall(g, x, y, directions.RIGHT, this.wall_off);
                 }
             }
