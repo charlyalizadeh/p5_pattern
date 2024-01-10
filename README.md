@@ -2,7 +2,7 @@
 
 ## Hicks' Hexagon
 
-(documentation)[doc/hickshexagon.md]
+[doc/hickshexagon.md](documentation)
 
 ![](images/HicksHexagon/TheShining.png)
 ![](images/HicksHexagon/hickshexagon.png)
