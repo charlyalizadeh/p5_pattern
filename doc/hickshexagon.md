@@ -1,4 +1,4 @@
-![The Shining pattern](/static/hickshexagon/TheShining.png)
+![The Shining pattern](static/hickshexagon/TheShining.png)
 
 
 The Hicks' Hexagon is a pattern created by [David Hicks](https://en.wikipedia.org/wiki/David_Hicks_(designer)) in the 1960s. It got popular in the Stanley Kubrick's movie [The Shining](https://en.wikipedia.org/wiki/The_Shining_(film)).
@@ -9,7 +9,7 @@ Thanks to [p5js](https://p5js.org/) I implemented a generalization of this patte
 
 First we need to create an hexagon class. In my code I chose to define an hexagon by four metrics: its origin, its width, its height and the height of its up and down triangles.
 
-![Hexagon definition](/static/hickshexagon/hexagon1.png)
+![Hexagon definition](static/hickshexagon/hexagon1.png)
 
 ```js
 class Hexagon {
@@ -25,7 +25,7 @@ class Hexagon {
 Because of the way the p5js API works, we need to explicitly pass the 3 points of a triangle if we want to draw it. So we need to translate our four metrics system into two set of three points.
 The points of the main rectangle are easy to get, we just add the width and/or the height to get them.
 
-![Main rectangle of the hexagon](/static/hickshexagon/hexagon2.png)
+![Main rectangle of the hexagon](static/hickshexagon/hexagon2.png)
 
 ```js
 // this.origin corresponds to the upper left vertex of the main rectangle
@@ -36,7 +36,7 @@ this.up_right = p5.Vector.add(this.origin, createVector(this.width, 0));
 
 Then to compute the position of the tops of our triangles we only need to add the right vector to the origin. See the following graph:
 
-![Top of the hexagon](/static/hickshexagon/hexagon3.png)
+![Top of the hexagon](static/hickshexagon/hexagon3.png)
 
 ```js
 this.up = p5.Vector.add(
@@ -85,7 +85,7 @@ fill(color, image) {
 
 We obtain the following hexagon:
 
-![Hexagon drawed](/static/hickshexagon/hexagon4.png)
+![Hexagon drawed](static/hickshexagon/hexagon4.png)
 
 You can find the code for the hexagon drawing here: [https://editor.p5js.org/charlyalizadeh/sketches/okWoy5P_Q](https://editor.p5js.org/charlyalizadeh/sketches/okWoy5P_Q)
 
@@ -93,12 +93,12 @@ You can find the code for the hexagon drawing here: [https://editor.p5js.org/cha
 
 Now that we can draw an hexagon we need a way to know where to draw its outline. We define the outline of an hexagon based on the distance between the edges.
 
-![Outline size](/static/hickshexagon/outline_size.png)
+![Outline size](static/hickshexagon/outline_size.png)
 
 
 We define four methods, one for each non vertical edge, that return the norm unit vector of the corresponding edge.
 
-![Outline norm](/static/hickshexagon/outline_norm.png)
+![Outline norm](static/hickshexagon/outline_norm.png)
 
 ```js
  norm_vector_up_left() {
@@ -131,7 +131,7 @@ We define four methods, one for each non vertical edge, that return the norm uni
  We don't implement the norm methods for the vertical edges because we can just shift the x coordinate of the edge to get the desired outline.
 
 
-![Outline size line](/static/hickshexagon/outline_size_line.png)
+![Outline size line](static/hickshexagon/outline_size_line.png)
 
 To get the outline we just build the norm unit vector for each edge, multiply it by the desired size and then add it to the corresponding of the end of the edges.
 
@@ -220,7 +220,7 @@ Now that we have our outline lines we can build our new `Hexagon` object.
 
 We obtain the following result:
 
-![Hexagon outline](/static/hickshexagon/hexagon5.png)
+![Hexagon outline](static/hickshexagon/hexagon5.png)
 
 Link to the p5 code for the outline: https://editor.p5js.org/charlyalizadeh/sketches/x9yaRcvTY
 
