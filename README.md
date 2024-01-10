@@ -28,18 +28,18 @@
 
 ### Part 2
 
-![](images/InfiniteRainbow2/infinite_rainbow_2_1.png)
-![](images/InfiniteRainbow2/infinite_rainbow_2_2.png)
-![](images/InfiniteRainbow2/infinite_rainbow_2_3.png)
-![](images/InfiniteRainbow2/infinite_rainbow_2_4.png)
-![](images/InfiniteRainbow2/infinite_rainbow_2_5.png)
-![](images/InfiniteRainbow2/infinite_rainbow_2_6.png)
+![](images/InfiniteRainbow2/infinite_rainbow2_1.png)
+![](images/InfiniteRainbow2/infinite_rainbow2_2.png)
+![](images/InfiniteRainbow2/infinite_rainbow2_3.png)
+![](images/InfiniteRainbow2/infinite_rainbow2_4.png)
+![](images/InfiniteRainbow2/infinite_rainbow2_5.png)
+![](images/InfiniteRainbow2/infinite_rainbow2_6.png)
 
 ### Part 3
 
-![](images/InfiniteRainbowMaryam/infinite_rainbow_2_1.png)
-![](images/InfiniteRainbowMaryam/infinite_rainbow_2_2.png)
-![](images/InfiniteRainbowMaryam/infinite_rainbow_2_3.png)
-![](images/InfiniteRainbowMaryam/infinite_rainbow_2_4.png)
-![](images/InfiniteRainbowMaryam/infinite_rainbow_2_5.png)
-![](images/InfiniteRainbowMaryam/infinite_rainbow_2_6.png)
+![](images/InfiniteRainbowMaryam/infinite_rainbow2_1.png)
+![](images/InfiniteRainbowMaryam/infinite_rainbow2_2.png)
+![](images/InfiniteRainbowMaryam/infinite_rainbow2_3.png)
+![](images/InfiniteRainbowMaryam/infinite_rainbow2_4.png)
+![](images/InfiniteRainbowMaryam/infinite_rainbow2_5.png)
+![](images/InfiniteRainbowMaryam/infinite_rainbow2_6.png)
