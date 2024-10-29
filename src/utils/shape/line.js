@@ -1,3 +1,8 @@
+function point_dist(p1, p2) {
+    let dist = sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
+    return dist;
+}
+
 function line_intersection(p1, p2, p3, p4) {
     let x_num = (p1.x*p2.y - p1.y*p2.x) * (p3.x - p4.x) - (p1.x - p2.x) * (p3.x*p4.y - p3.y*p4.x);
     let x_den = (p1.x - p2.x) * (p3.y - p4.y) - (p1.y - p2.y) * (p3.x - p4.x);
@@ -6,6 +11,20 @@ function line_intersection(p1, p2, p3, p4) {
     let y_den = (p1.x - p2.x) * (p3.y - p4.y) - (p1.y - p2.y) * (p3.x - p4.x);
     return createVector(x_num / x_den, y_num / y_den);
 }
+
+function line_midpoint(p1, p2) {
+    let midpoint = createVector((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+    return midpoint;
+}
+
+function line_norm(p1, p2) {
+     let dx = p2.x - p1.x;
+     let dy = p2.y - p1.y;
+     let norm = createVector(-dy, dx)
+     norm.normalize();
+     return norm;
+}
+
 
 class Line {
     constructor(p1, p2) {

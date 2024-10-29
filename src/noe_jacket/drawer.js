@@ -1,6 +1,6 @@
-class NoeJacket extends PatternDrawer {
+class NoeJacket {
     constructor(image, outline_props, offset_first_outline, offset=null) {
-        super(image);
+        this.image = image;
         this.outline_props = outline_props;
         this.offset_first_outline = offset_first_outline;
         this.cross_template = new Cross(

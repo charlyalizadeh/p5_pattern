@@ -1,4 +1,4 @@
-class HicksHexagonDrawer extends PatternDrawer {
+class HicksHexagonDrawer {
     constructor(image, hexagon_props, layer_props) {
         super(image);
         this.hexagon_props = hexagon_props;

@@ -143,8 +143,9 @@ class Cross {
         }
     }
 
-    draw() {
-        this.draw_outlines();
+    draw(draw_outlines=true) {
+        if(draw_outlines)
+            this.draw_outlines();
         this.draw_main_cross();
     }
 }
