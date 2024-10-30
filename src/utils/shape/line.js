@@ -25,7 +25,6 @@ function line_norm(p1, p2) {
      return norm;
 }
 
-
 class Line {
     constructor(p1, p2) {
         this.p1 = p1;

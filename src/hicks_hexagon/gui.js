@@ -1,4 +1,4 @@
-function get_pattern(canvas, name) {
+function get_pattern(name) {
     let hexagon_props, outline_props;
     switch(name) {
         case 'shining':
@@ -11,7 +11,7 @@ function get_pattern(canvas, name) {
                 'color': ['black', '#DF5F18']
             }
     }
-    return new HicksHexagonDrawer(canvas, hexagon_props, outline_props);
+    return new HicksHexagonDrawer(hexagon_props, outline_props);
 }
 
 class LayerGui {

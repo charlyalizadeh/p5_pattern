@@ -1,6 +1,5 @@
 class HicksHexagonDrawer {
-    constructor(image, hexagon_props, layer_props) {
-        super(image);
+    constructor(hexagon_props, layer_props) {
         this.hexagon_props = hexagon_props;
         this.layer_props = layer_props;
 
@@ -135,7 +134,7 @@ class HicksHexagonDrawer {
     }
 
 
-    draw_hexagon(x, y, add_outer_layer=true, reverse=false) {
+    draw_hexagon(image, x, y, add_outer_layer=true, reverse=false) {
         // Main hexagon
         let hexagon = new Hexagon(
             createVector(x, y),
@@ -162,42 +161,42 @@ class HicksHexagonDrawer {
         }
         for(let i = hexagons.length - 1; i >= 0; i--) {
             let temp_x = x + hexagon.width / 2 - this.layer_props['width'][i] / 2;
-            this.image.fill(this.layer_props['color'][i]);
-            hexagons[i].fill(this.layer_props['color'][i], this.image);
-            this.image.rect(temp_x, line_y, this.layer_props['width'][i], line_height[i]);
+            image.fill(this.layer_props['color'][i]);
+            hexagons[i].fill(this.layer_props['color'][i], image);
+            image.rect(temp_x, line_y, this.layer_props['width'][i], line_height[i]);
         }
 
 
-        this.image.fill(this.hexagon_props['color']);
-        hexagon.fill(this.hexagon_props['color'], this.image);
+        image.fill(this.hexagon_props['color']);
+        hexagon.fill(this.hexagon_props['color'], image);
     }
-    draw_up_down_hexagons() {
+    draw_up_down_hexagons(image) {
         let x = -this.padding_x;
         let y = -this.padding_y;
-        while(y < this.image.height + this.padding_y) {
+        while(y < image.height + this.padding_y) {
             x = -this.padding_x;
-            while(x < this.image.width + this.padding_x) {
-                this.draw_hexagon(x, y);
+            while(x < image.width + this.padding_x) {
+                this.draw_hexagon(image, x, y);
                 x += 2 * this.offset_x;
             }
             y += this.offset_row;
         }
     }
-    draw_down_up_hexagons() {
+    draw_down_up_hexagons(image) {
         let x = -this.padding_x;
         let y = -this.padding_y + this.offset_y;
 
-        while(y < this.image.height + this.padding_y) {
+        while(y < image.height + this.padding_y) {
             x = -this.padding_x + this.offset_x;
-            while(x < this.image.width + this.padding_x) {
-                this.draw_hexagon(x, y, false, true);
+            while(x < image.width + this.padding_x) {
+                this.draw_hexagon(image, x, y, false, true);
                 x += 2 * this.offset_x;
             }
             y += this.offset_row;
         }
     }
-    draw() {
-        this.draw_up_down_hexagons();
-        this.draw_down_up_hexagons();
+    draw(image) {
+        this.draw_up_down_hexagons(image);
+        this.draw_down_up_hexagons(image);
     }
 }
