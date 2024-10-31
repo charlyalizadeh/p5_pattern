@@ -1,23 +1,29 @@
 class IsoCubePattern {
-    constructor(image, dims, outline) {
-        this.image = image;
+    constructor(dims, outline, colors) {
         this.dims = dims;
         this.outline = outline;
+        this.colors = colors;
     }
-    draw(colors) {
-        let offset = 0;
-        let y = 0;
+    draw(image) {
+        let offset;
+        let y;
         let cube;
-        while(y < this.image.height) {
-            for(let x = offset; x < this.image.width; x += this.dims[0] + this.outline) {
+
+
+        offset = 0;
+        y = 0;
+        cube;
+        while(y < image.height) {
+            for(let x = offset; x < image.width; x += this.dims[0] + this.outline) {
                 cube = new IsoCube(
                     createVector(x, y),
                     this.dims[0],
                     this.dims[1],
                     this.dims[2],
-                    this.outline
+                    this.outline,
+                    this.colors
                 );
-                cube.fill(colors, this.image);
+                cube.fill(image);
             }
             offset = offset == 0 ? - (this.dims[0] + this.outline) / 2 : 0;
             y = cube.hexagon_outline.down.y;

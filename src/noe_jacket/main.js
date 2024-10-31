@@ -2,6 +2,7 @@ let drawer_fg, drawer_bg;
 let s;
 let graphics_fg, graphics_bg;
 let capturer;
+let record = false;
 
 function setup() {
     let canvas = createCanvas(1080, 1080);
@@ -49,7 +50,7 @@ function setup() {
 
 
 function draw() {
-    if(s == 400)
+    if(record && s == 400)
         capturer.start();
     image(graphics_fg, 200, 200, 680, 680, s, s, 680, 680);
     s -= 0.5;
@@ -57,9 +58,12 @@ function draw() {
     if(s <= 0) {
         console.log("STOPPED");
         s = 400;
-        capturer.stop();
-        capturer.save();
+        if(record) {
+            capturer.stop();
+            capturer.save();
+        }
         return;
     }
-    capturer.capture(canvas);
+    if(record)
+        capturer.capture(canvas);
 }

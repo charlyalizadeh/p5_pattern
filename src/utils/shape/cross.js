@@ -28,7 +28,7 @@ class Cross {
     }
     /**
      * Compute the absolute width for each outline.
-     * 
+     *
      * Each outline is given a relative width that corresponds to its distance
      * from the outline it preceeds. To draw an outline we need to compute
      * it's distance from the origin.
@@ -42,7 +42,7 @@ class Cross {
     }
     /**
      * Compute the vertices of the main branches' quads
-     * 
+     *
      * @param {Int} branch the branch id
      * @returns a 4 a dimensional array containing the points defining the quad of the branch `branch`
      */
@@ -56,7 +56,7 @@ class Cross {
         // Compute the normal vector of the branch to compute the "bottom" vertices
         normal_vector = p5.Vector.rotate(this.branch_unit_vector[branch], PI / 2);
         normal_vector.normalize().mult(this.outline_props[0]['width']);
-        
+
         // Use the normal vector computed above to compute the 4 vertex of the quad
         bottom_right = p5.Vector.add(this.origin, p5.Vector.mult(normal_vector, -1));
         bottom_left = p5.Vector.add(this.origin, normal_vector);
@@ -67,7 +67,7 @@ class Cross {
     }
     /**
      * Compute the vertices of the first outline branches' quads
-     * 
+     *
      * @param {Int} branch the branch id
      * @returns a 5 a dimensional array containing the points defining the quad and the triangle of the given first outline
      */
@@ -112,7 +112,7 @@ class Cross {
         return [bottom_right, bottom_left, top_left, trig_top, top_right];
     }
     /**
-     * 
+     *
      * @param {Int} branch the branch id
      * @param {Int} outline_id the outline id
      * @returns a 5 a dimensional array containing the points defining the quad and the triangle of the given outline
@@ -174,7 +174,7 @@ class Cross {
     draw_branch_number(image) {
         let points;
         let p;
-        
+
 
         image.strokeWeight(1);
         image.textSize(16);

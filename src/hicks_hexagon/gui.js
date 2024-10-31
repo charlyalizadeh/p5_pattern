@@ -1,5 +1,7 @@
 function get_pattern(name) {
     let hexagon_props, outline_props;
+
+
     switch(name) {
         case 'shining':
             hexagon_props = {

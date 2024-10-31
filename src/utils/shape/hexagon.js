@@ -23,7 +23,10 @@ class Hexagon {
         );
     }
     norm_vector_up_left() {
-        let norm_vector = p5.Vector.sub(this.up, this.origin);
+        let norm_vector;
+
+
+        norm_vector = p5.Vector.sub(this.up, this.origin);
         norm_vector.x += norm_vector.y;
         norm_vector.y = norm_vector.x - norm_vector.y;
         norm_vector.x -= norm_vector.y;
@@ -32,7 +35,10 @@ class Hexagon {
         return norm_vector;
     }
     norm_vector_up_right() {
-        let norm_vector = this.norm_vector_up_left();
+        let norm_vector;
+
+
+        norm_vector = this.norm_vector_up_left();
         norm_vector.x = -norm_vector.x;
         return norm_vector;
     }
@@ -40,93 +46,105 @@ class Hexagon {
         return this.norm_vector_up_left().mult(-1);
     }
     norm_vector_down_left() {
-        let norm_vector = this.norm_vector_up_left();
+        let norm_vector;
+
+
+        norm_vector = this.norm_vector_up_left();
         norm_vector.y = -norm_vector.y;
         return norm_vector;
     }
     outline_line_up_left(outline_size) {
-        let offset_vector = this.norm_vector_up_left().mult(outline_size);
-        let p1 = p5.Vector.add(this.up, offset_vector);
-        let p2 = p5.Vector.add(this.origin, offset_vector);
+        let offset_vector;
+        let p1, p2;
+
+
+        offset_vector = this.norm_vector_up_left().mult(outline_size);
+        p1 = p5.Vector.add(this.up, offset_vector);
+        p2 = p5.Vector.add(this.origin, offset_vector);
         return new Line(p1, p2);
     }
     outline_line_up_right(outline_size) {
-        let offset_vector = this.norm_vector_up_right().mult(outline_size);
-        let p1 = p5.Vector.add(this.up, offset_vector);
-        let p2 = p5.Vector.add(this.up_right, offset_vector);
+        let offset_vector;
+        let p1, p2;
+
+
+        offset_vector = this.norm_vector_up_right().mult(outline_size);
+        p1 = p5.Vector.add(this.up, offset_vector);
+        p2 = p5.Vector.add(this.up_right, offset_vector);
         return new Line(p1, p2);
     }
     outline_line_left(outline_size) {
-        let p1 = this.origin.copy();
+        let p1, p2;
+
+        p1 = this.origin.copy();
         p1.x -= outline_size;
-        let p2 = this.down_left.copy();
+        p2 = this.down_left.copy();
         p2.x -= outline_size;
         return new Line(p1, p2)
     }
     outline_line_right(outline_size) {
-        let p1 = this.up_right.copy();
+        let p1, p2;
+
+
+        p1 = this.up_right.copy();
         p1.x += outline_size;
-        let p2 = this.down_right.copy();
+        p2 = this.down_right.copy();
         p2.x += outline_size;
         return new Line(p1, p2)
     }
     outline_line_down_left(outline_size) {
-        let offset_vector = this.norm_vector_down_left().mult(outline_size);
-        let p1 = p5.Vector.add(this.down_left, offset_vector);
-        let p2 = p5.Vector.add(this.down, offset_vector);
+        let offset_vector;
+        let p1, p2;
+
+
+        offset_vector = this.norm_vector_down_left().mult(outline_size);
+        p1 = p5.Vector.add(this.down_left, offset_vector);
+        p2 = p5.Vector.add(this.down, offset_vector);
         return new Line(p1, p2);
     }
     outline_line_down_right(outline_size) {
-        let offset_vector = this.norm_vector_down_right().mult(outline_size);
-        let p1 = p5.Vector.add(this.down_right, offset_vector);
-        let p2 = p5.Vector.add(this.down, offset_vector);
+        let offset_vector;
+        let p1, p2;
+
+
+        offset_vector = this.norm_vector_down_right().mult(outline_size);
+        p1 = p5.Vector.add(this.down_right, offset_vector);
+        p2 = p5.Vector.add(this.down, offset_vector);
         return new Line(p1, p2);
     }
     outline_edge(outline_size) {
-        let line_up_left = this.outline_line_up_left(outline_size);
-        let line_up_right = this.outline_line_up_right(outline_size);
-        let line_left = this.outline_line_left(outline_size);
-        let line_right = this.outline_line_right(outline_size);
-        let line_down_left = this.outline_line_down_left(outline_size);
-        let line_down_right = this.outline_line_down_right(outline_size);
-        let new_origin = line_intersection(
+        let line_up_left, line_up_right;
+        let line_left, line_right;
+        let line_down_left, line_down_right;
+        let new_up, new_origin, new_up_right, new_down_left;
+        let new_width, new_height, new_triangle_height;
+
+
+        line_up_left = this.outline_line_up_left(outline_size);
+        line_up_right = this.outline_line_up_right(outline_size);
+        line_left = this.outline_line_left(outline_size);
+        line_right = this.outline_line_right(outline_size);
+        line_down_left = this.outline_line_down_left(outline_size);
+        line_down_right = this.outline_line_down_right(outline_size);
+        new_origin = line_intersection(
             line_up_left.p1, line_up_left.p2,
             line_left.p1, line_left.p2
         );
-        let new_up_right = line_intersection(
+        new_up_right = line_intersection(
             line_up_right.p1, line_up_right.p2,
             line_right.p1, line_right.p2
         )
-        let new_width = new_up_right.x - new_origin.x;
-        let new_down_left = line_intersection(
+        new_width = new_up_right.x - new_origin.x;
+        new_down_left = line_intersection(
             line_down_left.p1, line_down_left.p2,
             line_left.p1, line_left.p2
         )
-        let new_height = new_down_left.y - new_origin.y;
-        let new_up = line_intersection(
+        new_height = new_down_left.y - new_origin.y;
+        new_up = line_intersection(
             line_up_right.p1, line_up_right.p2,
             line_up_left.p1, line_up_left.p2
         )
-        let new_triangle_height = new_origin.y - new_up.y;
-        return new Hexagon(new_origin, new_width, new_height, new_triangle_height);
-    }
-    outline_vertex(outline_size) {
-        let new_origin = p5.Vector.add(
-            this.origin,
-            p5.Vector.mult(p5.Vector.limit(this.v1, outline_size), -1)
-        );
-        let new_up_right = p5.Vector.add(
-            this.up_right,
-            p5.Vector.limit(this.v2, outline_size)
-        );
-        let new_width = new_up_right.x - new_origin.x;
-        let new_down_left = p5.Vector.add(
-            this.down_left,
-            p5.Vector.mult(p5.Vector.limit(this.v2, outline_size), -1)
-        );
-        let new_height = new_down_left.y - new_origin.y;
-        let new_up = p5.Vector.add(this.up, createVector(0, -outline_size));
-        let new_triangle_height = new_origin.y - new_up.y;
+        new_triangle_height = new_origin.y - new_up.y;
         return new Hexagon(new_origin, new_width, new_height, new_triangle_height);
     }
     draw_vertices(image) {
