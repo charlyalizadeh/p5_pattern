@@ -62,8 +62,8 @@ class InfiniteRainbowDrawer {
         this.circle_template.origin.x = 0;
         this.circle_template.origin.y = 0;
         i = 0;
-        while(this.circle_template.origin.y < height + this.accumulated_radius) {
-            while(this.circle_template.origin.x < width + this.accumulated_radius) {
+        while(this.circle_template.origin.y < image.height + this.accumulated_radius) {
+            while(this.circle_template.origin.x < image.width + this.accumulated_radius) {
                 this.circle_template.fill(image);
                 this.circle_template.origin.x += this.width_offset;
             }
@@ -86,7 +86,7 @@ class InfiniteRainbowDrawer {
         this.circle_template.origin.y = 0;
         i = 0;
         current_color_index = 0;
-        while(this.circle_template.origin.y < height + this.accumulated_radius) {
+        while(this.circle_template.origin.y < image.height + this.accumulated_radius) {
             if(i % line_per_color == 0) {
                 color_to_apply = colors[current_color_index % colors.length];
                 current_color_index++;
@@ -94,7 +94,7 @@ class InfiniteRainbowDrawer {
                     this.circle_template.outline_props[outline[j]]['fill'] = color_to_apply;
                 }
             }
-            while(this.circle_template.origin.x < width + this.accumulated_radius) {
+            while(this.circle_template.origin.x < image.width + this.accumulated_radius) {
                 this.circle_template.fill(image);
                 this.circle_template.origin.x += this.width_offset;
             }
@@ -119,8 +119,8 @@ class InfiniteRainbowDrawer {
         this.circle_template.origin.x = 0;
         this.circle_template.origin.y = 0;
         i = 0;
-        while(this.circle_template.origin.y < height + this.accumulated_radius) {
-            while(this.circle_template.origin.x < width + this.accumulated_radius) {
+        while(this.circle_template.origin.y < image.height + this.accumulated_radius) {
+            while(this.circle_template.origin.x < image.width + this.accumulated_radius) {
                 r = random(1)
                 console.log(r);
                 if(r <= probability) {
