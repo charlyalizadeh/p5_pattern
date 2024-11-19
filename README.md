@@ -18,7 +18,7 @@
 
 ### Part 2
 
-![](images/InfiniteRainbow2/INFINITERAINBOW2.png)
+![](images/InfiniteRainbowMaryam/INFINITERAINBOW2.png)
 
 
 ## Pillars
