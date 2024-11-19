@@ -4,7 +4,7 @@ class IsoCubePattern {
         this.outline = outline;
         this.colors = colors;
     }
-    draw(image) {
+    draw(image, shadow) {
         let offset;
         let y;
         let cube;
@@ -13,7 +13,7 @@ class IsoCubePattern {
         offset = 0;
         y = 0;
         cube;
-        while(y < image.height) {
+        while(y <= image.height + 10) {
             for(let x = offset; x < image.width; x += this.dims[0] + this.outline) {
                 cube = new IsoCube(
                     createVector(x, y),
@@ -23,7 +23,7 @@ class IsoCubePattern {
                     this.outline,
                     this.colors
                 );
-                cube.fill(image);
+                cube.fill(image, true);
             }
             offset = offset == 0 ? - (this.dims[0] + this.outline) / 2 : 0;
             y = cube.hexagon_outline.down.y;
