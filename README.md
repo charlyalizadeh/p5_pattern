@@ -23,7 +23,7 @@
 
 ## Pillars
 
-![](images/Pillars/PILLAR.png)
+![](images/Pillars/PILLARS.png)
 
 ## IsoCube
 
