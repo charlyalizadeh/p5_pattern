@@ -1,46 +1,43 @@
 let drawer_fg, drawer_bg;
-let s;
+let s_fg, s_bg;
 let graphics_fg, graphics_bg;
 let capturer;
 let record = false;
 
 function setup() {
     let canvas = createCanvas(1080, 1080);
-    s = 400;
+    s_fg = 400;
+    s_bg = 0;
 
-    graphics_fg = createGraphics(1080, 1080);
-    graphics_bg = createGraphics(1080, 1080);
+    graphics_fg = createGraphics(1080 * 5, 1080 * 5);
+    graphics_bg = createGraphics(1080 * 5, 1080 * 5);
 
-    graphics_fg.background("black");
-    graphics_bg.background("#344955");
+    //graphics_fg.background("black");
+    //graphics_bg.background("#344955");
 
     drawer_fg = new NoeJacket(
         [
-            {"color": "black", "width": 2, "length": 50 },
-            {"color": "#BB7313", "width": 8 },
-            {"color": "black", "width": 8 },
-            {"color": "white", "width": 16 },
+            {"color": "#000B58", "width": 2, "length": 40 },
+            {"color": "#FFF4B7", "width": 5 },
+            {"color": "#003161", "width": 5 },
+            {"color": "#006A67", "width": 5 },
+            {"color": "#FFF4B7", "width": 4 },
+            {"color": "#003161", "width": 4 },
+            {"color": "#006A67", "width": 4 },
+            {"color": "#FFF4B7", "width": 2 },
+            {"color": "#003161", "width": 2 },
+            {"color": "#006A67", "width": 2 },
         ],
         20,
         null
     );
-    drawer_bg = new NoeJacket(
-        [
-            {"color": "#344955", "width": 5, "length": 50 },
-            {"color": "#2F424D", "width": 8 },
-            {"color": "#2A3A44", "width": 8 },
-            {"color": "#24333B", "width": 16 },
-        ],
-        20,
-        null
-    );
-
+    drawer_bg = new IsoCubePattern([50, 22, 14], 1, ["#800000", "#982B1C", "#DAD4B5", "#F2E8C6"]);
     canvas.position(0, 0);
     drawer_fg.draw(graphics_fg);
     drawer_bg.draw(graphics_bg);
-    graphics_bg.stroke("black");
-    graphics_bg.strokeWeight(20)
-    graphics_bg.quad(200, 200,
+    stroke("black");
+    strokeWeight(20)
+    quad(200, 200,
          200, 880,
          880, 880,
          880, 200);
@@ -50,14 +47,31 @@ function setup() {
 
 
 function draw() {
-    if(record && s == 400)
+    clear();
+    if(record && s_fg == 400)
         capturer.start();
-    image(graphics_fg, 200, 200, 680, 680, s, s, 680, 680);
-    s -= 0.5;
-    console.log(`${s}`);
-    if(s <= 0) {
+    image(graphics_bg, 0, 0, 1080, 1080, s_bg, s_bg, 1080, 1080);
+    image(graphics_fg, 200, 200, 680, 680, s_fg, s_fg, 680, 680);
+    stroke("#FFF4B7");
+    strokeWeight(20)
+    fill(0, 0, 0, 0)
+    quad(200, 200, 200, 880, 880, 880, 880, 200);
+    stroke("#006A67");
+    strokeWeight(10)
+    fill(0, 0, 0, 0)
+    quad(200, 200, 200, 880, 880, 880, 880, 200);
+    stroke("#FFF4B7");
+    strokeWeight(5)
+    fill(0, 0, 0, 0)
+    quad(200, 200, 200, 880, 880, 880, 880, 200);
+
+    s_fg -= 1;
+    s_bg += 0.5;
+    console.log(`${s_fg}`);
+    if(s_fg <= 0) {
         console.log("STOPPED");
-        s = 400;
+        s_fg = 400;
+        s_bg = 0;
         if(record) {
             capturer.stop();
             capturer.save();
